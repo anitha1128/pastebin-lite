@@ -6,14 +6,15 @@
     "lib": "lib"
   },
   "scripts": {
-  "dev": "nodemon src/index.js",
-  "start": "node src/index.js"
-},
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "A small Pastebin-like app built with Node.js, Express, and Redis.",
   "dependencies": {
+    "cors": "^2.8.6",
     "dotenv": "^17.2.3",
     "ejs": "^4.0.1",
     "express": "^5.2.1",

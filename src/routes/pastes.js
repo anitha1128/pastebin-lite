@@ -5,6 +5,7 @@ const redis = require('../redis');
 const { nowMs } = require('../utils/time');
 
 const router = express.Router();
+const path = require('path');
 
 
 //  POST /api/pastes
@@ -93,9 +94,7 @@ router.get('/p/:id', async (req, res) => {
 
   await redis.hincrby(key, 'views', 1);
 
-  res.render('paste', {
-    content: data.content
-  });
+  res.sendFile(path.join(__dirname, '../views/paste.html'));
 });
 
 module.exports = router;

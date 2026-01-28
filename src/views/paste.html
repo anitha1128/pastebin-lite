@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pastebin Lite</title>
+</head>
+<body>
+
+<h1>Create Paste</h1>
+
+<textarea id="content" placeholder="Enter text" rows="6" cols="50"></textarea><br><br>
+
+TTL (seconds):
+<input id="ttl" type="number"><br><br>
+
+Max Views:
+<input id="views" type="number"><br><br>
+
+<button onclick="createPaste()">Create Paste</button>
+
+<p id="link"></p>
+
+<hr>
+
+<h2>View Paste</h2>
+<pre id="pasteContent"></pre>
+
+<script>
+/* ---------- CREATE PASTE ---------- */
+async function createPaste() {
+  const content = document.getElementById('content').value;
+  const ttl_seconds = Number(document.getElementById('ttl').value) || undefined;
+  const max_views = Number(document.getElementById('views').value) || undefined;
+
+  try {
+    const res = await fetch('http://localhost:3000/api/pastes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ content, ttl_seconds, max_views })
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      document.getElementById('link').innerHTML =
+        `<a href="${data.url}" target="_blank">${data.url}</a>`;
+    } else {
+      document.getElementById('link').innerText = data.error;
+    }
+  } catch (e) {
+    document.getElementById('link').innerText = 'Network error';
+  }
+}
+
+/* ---------- VIEW PASTE ---------- */
+const path = window.location.pathname.split('/');
+if (path[1] === 'p') {
+  const id = path[2];
+
+  fetch(`/api/pastes/${id}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('pasteContent').innerText =
+        data.content || data.error;
+    })
+    .catch(() => {
+      document.getElementById('pasteContent').innerText = 'Error loading paste';
+    });
+}
+</script>
+
+</body>
+</html>
