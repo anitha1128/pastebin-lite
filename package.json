@@ -1,0 +1,28 @@
+{
+  "name": "pastebin",
+  "version": "1.0.0",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+  "dev": "nodemon src/index.js",
+  "start": "node src/index.js"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "A small Pastebin-like app built with Node.js, Express, and Redis.",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "ejs": "^4.0.1",
+    "express": "^5.2.1",
+    "express-validator": "^7.3.1",
+    "ioredis": "^5.9.2",
+    "nanoid": "^5.1.6",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
